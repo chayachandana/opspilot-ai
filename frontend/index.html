@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OpsPilot AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 20px 32px;
+      border-bottom: 1px solid #1e2130;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    header span {
+      font-size: 13px;
+      color: #6b7280;
+      margin-left: 4px;
+    }
+
+    .chat-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin: auto;
+      max-width: 480px;
+    }
+
+    .welcome h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .welcome p {
+      color: #6b7280;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .suggestions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .suggestion {
+      background: #1a1d2e;
+      border: 1px solid #2a2d3e;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #a0aec0;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .suggestion:hover {
+      background: #1e2240;
+      border-color: #4f6ef7;
+      color: #fff;
+    }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 780px;
+    }
+
+    .message.user { align-self: flex-end; align-items: flex-end; }
+    .message.assistant { align-self: flex-start; }
+
+    .message-label {
+      font-size: 11px;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .message-bubble {
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .user .message-bubble {
+      background: #4f6ef7;
+      color: #fff;
+    }
+
+    .assistant .message-bubble {
+      background: #1a1d2e;
+      border: 1px solid #2a2d3e;
+      color: #d1d5db;
+    }
+
+    .thinking {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: #1a1d2e;
+      border: 1px solid #2a2d3e;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .dots span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #4f6ef7;
+      border-radius: 50%;
+      margin-right: 3px;
+      animation: bounce 1.2s infinite;
+    }
+
+    .dots span:nth-child(2) { animation-delay: 0.2s; }
+    .dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+    }
+
+    .sources {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .source-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .source-shopify { background: #0d2e1a; color: #34d399; border: 1px solid #065f46; }
+    .source-zendesk { background: #1a1a0d; color: #fbbf24; border: 1px solid #78350f; }
+    .source-inventory { background: #0d1a2e; color: #60a5fa; border: 1px solid #1e3a5f; }
+
+    .input-area {
+      padding: 20px 32px;
+      border-top: 1px solid #1e2130;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    textarea {
+      flex: 1;
+      background: #1a1d2e;
+      border: 1px solid #2a2d3e;
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #e0e0e0;
+      font-size: 14px;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      line-height: 1.5;
+      min-height: 52px;
+      max-height: 120px;
+    }
+
+    textarea:focus { border-color: #4f6ef7; }
+    textarea::placeholder { color: #4b5563; }
+
+    button#send {
+      background: #4f6ef7;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    button#send:hover { background: #3b5bdb; }
+    button#send:disabled { background: #2a2d3e; color: #4b5563; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡</div>
+  <h1>OpsPilot AI <span>by Zestify</span></h1>
+</header>
+
+<div class="chat-area" id="chat">
+  <div class="welcome" id="welcome">
+    <h2>Your AI Operations Analyst</h2>
+    <p>Ask me anything about your sales, customer support, or inventory. I'll analyze all your data sources and give you specific, actionable insights.</p>
+    <div class="suggestions">
+      <button class="suggestion" onclick="ask('Why did sales drop this week?')">Why did sales drop this week?</button>
+      <button class="suggestion" onclick="ask('Which products need to be reordered?')">Which products need to be reordered?</button>
+      <button class="suggestion" onclick="ask('What are customers complaining about?')">What are customers complaining about?</button>
+    </div>
+  </div>
+</div>
+
+<div class="input-area">
+  <textarea id="input" placeholder="Ask about your sales, inventory, or customer issues..." rows="1"
+    onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); sendMessage();}"></textarea>
+  <button id="send" onclick="sendMessage()">Ask OpsPilot</button>
+</div>
+
+<script>
+  function ask(question) {
+    document.getElementById('input').value = question;
+    sendMessage();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('input');
+    const question = input.value.trim();
+    if (!question) return;
+
+    const chat = document.getElementById('chat');
+    const welcome = document.getElementById('welcome');
+    if (welcome) welcome.remove();
+
+    input.value = '';
+    document.getElementById('send').disabled = true;
+
+    chat.innerHTML += `
+      <div class="message user">
+        <div class="message-label">You</div>
+        <div class="message-bubble">${question}</div>
+      </div>`;
+
+    chat.innerHTML += `
+      <div class="message assistant" id="thinking">
+        <div class="message-label">OpsPilot AI</div>
+        <div class="thinking">
+          <div class="dots"><span></span><span></span><span></span></div>
+          Analyzing Shopify, Zendesk, and Inventory data...
+        </div>
+      </div>`;
+
+    chat.scrollTop = chat.scrollHeight;
+
+    try {
+      const res = await fetch('/ask', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({question})
+      });
+      const data = await res.json();
+
+      document.getElementById('thinking').remove();
+
+      chat.innerHTML += `
+        <div class="message assistant">
+          <div class="message-label">OpsPilot AI</div>
+          <div class="message-bubble">${data.answer}</div>
+          <div class="sources">
+            <span class="source-tag source-shopify">Shopify</span>
+            <span class="source-tag source-zendesk">Zendesk</span>
+            <span class="source-tag source-inventory">Inventory</span>
+          </div>
+        </div>`;
+    } catch(e) {
+      document.getElementById('thinking').remove();
+      chat.innerHTML += `
+        <div class="message assistant">
+          <div class="message-label">OpsPilot AI</div>
+          <div class="message-bubble">Something went wrong. Please try again.</div>
+        </div>`;
+    }
+
+    chat.scrollTop = chat.scrollHeight;
+    document.getElementById('send').disabled = false;
+    input.focus();
+  }
+</script>
+</body>
+</html>
