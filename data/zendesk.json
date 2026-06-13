@@ -1,0 +1,18 @@
+{
+  "report_period": "June 5-11, 2026",
+  "total_tickets": {
+    "this_week": 94,
+    "last_week": 72
+  },
+  "categories": [
+    {"type": "Shipping delay", "count_this_week": 41, "count_last_week": 28},
+    {"type": "Out of stock complaint", "count_this_week": 29, "count_last_week": 8},
+    {"type": "Wrong item received", "count_this_week": 14, "count_last_week": 19},
+    {"type": "General inquiry", "count_this_week": 10, "count_last_week": 17}
+  ],
+  "sample_tickets": [
+    {"id": "TKT-8821", "subject": "Where is my Lavender Diffuser?", "status": "open"},
+    {"id": "TKT-8834", "subject": "Lavender Diffuser out of stock - when will it return?", "status": "open"},
+    {"id": "TKT-8902", "subject": "Order stuck in processing for 5 days", "status": "open"}
+  ]
+}

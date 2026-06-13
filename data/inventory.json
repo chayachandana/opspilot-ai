@@ -1,0 +1,8 @@
+{
+  "report_date": "2026-06-11",
+  "products": [
+    {"name": "Lavender Diffuser", "sku": "SKU-1142", "stock": 0, "reorder_point": 25, "last_restock": "2026-05-20", "units_sold_30d": 124, "status": "OUT OF STOCK"},
+    {"name": "Rose Body Oil", "sku": "SKU-0891", "stock": 38, "reorder_point": 20, "last_restock": "2026-06-01", "units_sold_30d": 89, "status": "OK"},
+    {"name": "Eucalyptus Mist", "sku": "SKU-0443", "stock": 112, "reorder_point": 30, "last_restock": "2026-05-28", "units_sold_30d": 201, "status": "OK"}
+  ]
+}

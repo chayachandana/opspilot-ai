@@ -1,0 +1,14 @@
+{
+  "store": "Zestify",
+  "report_period": "June 5-11, 2026",
+  "weekly_sales": [
+    {"week": "May 22-28", "revenue": 12400, "orders": 187},
+    {"week": "May 29-Jun 4", "revenue": 11800, "orders": 174},
+    {"week": "Jun 5-11", "revenue": 9650, "orders": 143}
+  ],
+  "products": [
+    {"name": "Lavender Diffuser", "sku": "SKU-1142", "orders_this_week": 8, "orders_last_week": 31, "revenue_this_week": 320, "revenue_last_week": 1240},
+    {"name": "Rose Body Oil", "sku": "SKU-0891", "orders_this_week": 54, "orders_last_week": 58, "revenue_this_week": 2160, "revenue_last_week": 2320},
+    {"name": "Eucalyptus Mist", "sku": "SKU-0443", "orders_this_week": 81, "orders_last_week": 85, "revenue_this_week": 7170, "revenue_last_week": 8240}
+  ]
+}
