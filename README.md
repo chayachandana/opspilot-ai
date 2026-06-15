@@ -6,6 +6,9 @@
 [![Track](https://img.shields.io/badge/Track-Enterprise%20Agents-purple)]()
 [![Microsoft Foundry IQ](https://img.shields.io/badge/Microsoft-Foundry%20IQ-0078D4)]()
 
+## 🎥 Demo Video
+[▶️ Watch OpsPilot AI in action](https://github.com/chayachandana/opspilot-ai/blob/main/demo.mp4)
+
 ## 🚩 The Problem
 
 Small businesses have data everywhere:
@@ -51,6 +54,26 @@ Automatic Tool Calling
   └── 📦  Inventory Status Tool
      ↓
 Reasoned Analysis + Recommended Actions
+```
+
+## 📁 Project Structure
+
+```
+opspilot-ai/
+├── data/
+│   ├── shopify.json        # Mock Shopify sales data
+│   ├── zendesk.json        # Mock Zendesk support tickets
+│   └── inventory.json      # Mock inventory levels
+├── tools/
+│   ├── shopify.py          # Shopify data tool
+│   ├── zendesk.py          # Zendesk data tool
+│   └── inventory.py        # Inventory data tool
+├── frontend/
+│   └── index.html          # Chat UI
+├── main.py                 # FastAPI backend
+├── agent.py                # Azure AI Foundry agent (CLI version)
+├── demo.mp4                # Demo video
+└── README.md
 ```
 
 ## 💡 Microsoft IQ Integration
